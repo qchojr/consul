@@ -4,6 +4,8 @@ class I18nContent < ApplicationRecord
   translates :value, touch: true
   globalize_accessors
 
+  after_save :clear_cached_translations
+
   # flat_hash returns a flattened hash, a hash with a single level of
   # depth in which each key is composed from the keys of the original
   # hash (whose value is not a hash) by typing in the key of the route
@@ -94,4 +96,22 @@ class I18nContent < ApplicationRecord
       budgets.index.section_footer.description
     ]
   end
+
+  def self.for_key_and_locale(key:, locale:)
+    cached_translations[locale.to_sym][key]
+  end
+
+  def self.cached_translations
+    @cached_translations ||= Hash.new do |translations, locale|
+      translations[locale] = all.map do |content|
+        [content.key, I18nContentTranslation.find_by(i18n_content_id: content, locale: locale)&.value]
+      end.to_h
+    end
+  end
+
+  private
+
+    def clear_cached_translations
+      I18nContent.cached_translations.delete(Globalize.locale)
+    end
 end
