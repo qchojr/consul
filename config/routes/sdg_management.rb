@@ -7,6 +7,7 @@ namespace :sdg_management do
   constraints(relatable_type: /#{SDG::Related::RELATABLE_TYPES.map(&:tableize).join("|")}/) do
     get ":relatable_type", to: "relations#index", as: "relations"
     get ":relatable_type/:id/edit", to: "relations#edit", as: "edit_relation"
+    patch ":relatable_type/:id", to: "relations#update", as: "relation"
   end
 
   SDG::Related::RELATABLE_TYPES.map(&:tableize).each do |type|
@@ -17,5 +18,9 @@ namespace :sdg_management do
     get "#{type}/:id/edit",
       to: "relations#edit",
       as: "edit_#{type.singularize}"
+
+    patch "#{type}/:id",
+      to: "relations#update",
+      as: type.singularize
   end
 end
