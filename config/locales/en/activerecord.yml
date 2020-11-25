@@ -4,6 +4,9 @@ en:
     results_enabled: "Show results"
     stats_enabled: "Show stats"
     advanced_stats_enabled: "Show advanced stats"
+    name: Name
+    email: Email
+    description: Description
   activerecord:
     models:
       activity:
@@ -75,6 +78,9 @@ en:
       sdg/goal:
         one: "goal"
         other: "goals"
+      sdg/manager:
+        one: "SDG Manager"
+        other: "SDG Managers"
       sdg/target:
         one: "target"
         other: "targets"
