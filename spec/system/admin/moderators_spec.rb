@@ -64,6 +64,7 @@ describe "Admin moderators", :admin do
       click_button "Search"
 
       expect(page).to have_content("Moderators: User search")
+      expect(find("#name_or_email").value).to eq "Eliz"
       expect(page).to have_content(moderator1.name)
       expect(page).not_to have_content(moderator2.name)
     end
@@ -76,6 +77,7 @@ describe "Admin moderators", :admin do
       click_button "Search"
 
       expect(page).to have_content("Moderators: User search")
+      expect(find("#name_or_email").value).to eq  moderator2.email
       expect(page).to have_content(moderator2.email)
       expect(page).not_to have_content(moderator1.email)
     end

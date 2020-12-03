@@ -89,6 +89,7 @@ describe "Admin valuators", :admin do
       click_button "Search"
 
       expect(page).to have_content("Valuators: User search")
+      expect(find("#name_or_email").value).to eq "Foster"
       expect(page).to have_content(valuator1.name)
       expect(page).not_to have_content(valuator2.name)
     end
@@ -101,6 +102,7 @@ describe "Admin valuators", :admin do
       click_button "Search"
 
       expect(page).to have_content("Valuators: User search")
+      expect(find("#name_or_email").value).to eq valuator2.email
       expect(page).to have_content(valuator2.email)
       expect(page).not_to have_content(valuator1.email)
     end
